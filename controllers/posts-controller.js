@@ -46,17 +46,22 @@ function destroy (req, res) {
 
     const id = parseInt(req.params.id);
     const post = posts.findIndex(post => post.id === id);
-    posts.splice(post, 1);
-    console.log(posts);
    
     // status 
-    if(post) {
-        res.status(204);
+    if(post < 0) {
+        res.status(404);
         
         return res.json({
-            status: 204
+            status: 404,
+            error: 'Not Found',
+            message: 'Post non trovato'
         })
     }
+
+    posts.splice(post, 1);
+    console.log(posts);
+    // informare il client che la cancellazione è andata a buon fine
+    res.sendStatus(204);
 }
 
 // esportazione 
