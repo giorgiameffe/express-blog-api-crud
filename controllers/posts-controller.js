@@ -28,3 +28,6 @@ function destroy (req, res) {
     const {id} = req.params;
     res.send(`Eliminazione del post con id ${id}`);
 }
+
+// esportazione 
+module.exports = {index, show, store, update, modify, destroy};
