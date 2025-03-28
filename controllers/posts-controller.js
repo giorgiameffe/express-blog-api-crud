@@ -1,3 +1,6 @@
+// importare posts
+const posts = require('../data/posts.js');
+
 // funzioni operazioni CRUD
 
 function index (req, res) {
