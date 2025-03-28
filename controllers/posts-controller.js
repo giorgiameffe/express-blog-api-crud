@@ -8,8 +8,22 @@ function index (req, res) {
 }
 
 function show (req, res) {
+
     const id = parseInt(req.params.id);
+    // cercare il post tramite l'id
     const post = posts.find(post => post.id === id);
+
+    // controllare che esista il post con l'id inserito
+    if (!post) {
+        res.status(404);
+
+        return res.json({
+            status: 404,
+            error: 'Not Found',
+            message: 'Post non trovato'
+        })
+    }
+    // restituire il post in formato JSON
     res.json(post);
 }
 
@@ -34,11 +48,11 @@ function destroy (req, res) {
     const post = posts.findIndex(post => post.id === id);
     posts.splice(post, 1);
     console.log(posts);
-
+   
     // status 
     if(post) {
         res.status(204);
-
+        
         return res.json({
             status: 204
         })
