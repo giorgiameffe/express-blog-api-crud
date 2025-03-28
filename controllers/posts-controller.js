@@ -4,7 +4,17 @@ const posts = require('../data/posts.js');
 // funzioni operazioni CRUD
 
 function index (req, res) {
-    res.json(posts);
+    // console.log(req.query);
+    const tag = req.query.tag;
+    let filteredPosts = posts;
+
+    // se la richiesta contiene un filtro, filtrare i post
+    if(tag) {
+        filteredPosts = posts.filter(post => post.tags.includes(tag));
+    }
+    
+    // restituire i post filtrati o i post originali
+    res.json(filteredPosts);    
 }
 
 function show (req, res) {
@@ -45,9 +55,10 @@ function modify (req, res) {
 function destroy (req, res) {
 
     const id = parseInt(req.params.id);
+    // cercare indice del post
     const post = posts.findIndex(post => post.id === id);
-   
-    // status 
+
+    // controllare che esista il post in base all'indice
     if(post < 0) {
         res.status(404);
         
