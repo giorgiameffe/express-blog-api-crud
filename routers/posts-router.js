@@ -18,7 +18,7 @@ router.get('/:id', (req,res) => {
 })
 
 // store 
-router.post('/', (res,req) => {
+router.post('/', (req, res) => {
     res.send('Creazione di un nuovo post');
 })
 
@@ -35,7 +35,9 @@ router.patch('/:id', (req,res) => {
 })
 
 // destroy 
-router.destroy('/:id', (req, res) => {
+router.delete('/:id', (req, res) => {
     const {id} = req.params;
     res.send(`Eliminazione del post con id ${id}`);
 })
+
+module.exports = router;
