@@ -64,13 +64,44 @@ function store (req,res) {
 }
 
 function update (req,res) {
-    const id = req.params.id;
-    res.send(`Modifica integrale del post con id ${id}`);
+    const id = parseInt(req.params.id);
+    const post = posts.find(post => post.id === id);
+    console.log(post);
+
+    // modificare interamente un oggetto post
+    post.title = req.body.title;
+    post.content = req.body.content;
+    post.image = req.body.image;
+    post.tags = req.body.tags;
+    
+    console.log(post);
+    // restituire il post modificato in formato json
+    res.json(post);
 }
 
 function modify (req, res) {
-    const id = req.params.id;
-    res.send(`Modifica parziale del post con id ${id}`);
+    const id = parseInt(req.params.id);
+    const post = posts.find(post => post.id === id);
+
+    // modificare un post in base al campo che si vuole aggiornare
+    if(req.body.title) {
+        post.title = req.body.title
+    }
+
+    if(req.body.content) {
+        post.content = req.body.content;
+    }
+
+    if(req.body.image) {
+        post.title = req.body.image;
+    }
+
+    if(req.body.tags) {
+        post.tags = req.body.tags;
+    }
+    
+    // restituire il post in formato json
+    res.json(post);
     
 }
 
