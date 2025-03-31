@@ -13,7 +13,7 @@ function index (req, res) {
         filteredPosts = posts.filter(post => post.tags.includes(tag));
     }
     
-    // restituire i post filtrati o i post originali
+    // restituire i post filtrati o i post originari
     res.json(filteredPosts);    
 }
 
@@ -38,6 +38,7 @@ function show (req, res) {
 }
 
 function store (req,res) {
+    console.log(req.body);
     res.send('Creazione di un nuovo post');
 }
 
