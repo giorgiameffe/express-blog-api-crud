@@ -39,7 +39,28 @@ function show (req, res) {
 
 function store (req,res) {
     console.log(req.body);
-    res.send('Creazione di un nuovo post');
+    // incrementare l'id dell'ultimo oggetto dell'array
+    const newId = posts.at(-1).id + 1;
+    const {title, content, image, tags} = req.body;
+
+    // creare un nuovo post
+    const newPost = {
+        id: newId,
+        title,
+        content,
+        image,
+        tags
+    }
+
+    // aggiungere il nuovo post all'array di post
+    posts.push(newPost);
+    console.log(posts);
+    
+    // restituire lo status corretto (201=Created)
+    res.status(201);
+    // restituire il post creato in formato json
+    res.json(newPost);
+
 }
 
 function update (req,res) {
