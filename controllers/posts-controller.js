@@ -25,9 +25,8 @@ function show (req, res) {
 
     // controllare che esista il post con l'id inserito
     if (!post) {
-        res.status(404);
 
-        return res.json({
+        return res.status(404).json({
             status: 404,
             error: 'Not Found',
             message: 'Post non trovato'
@@ -68,6 +67,16 @@ function update (req,res) {
     const post = posts.find(post => post.id === id);
     console.log(post);
 
+    // controllare che esista il post con l'id inserito
+    if (!post) {
+       
+        return res.status(404).json({
+            status: 404,
+            error: 'Not Found',
+            message: 'Post non trovato'
+        })
+    }
+
     // modificare interamente un oggetto post
     post.title = req.body.title;
     post.content = req.body.content;
@@ -82,6 +91,16 @@ function update (req,res) {
 function modify (req, res) {
     const id = parseInt(req.params.id);
     const post = posts.find(post => post.id === id);
+    
+    // controllare che esista il post con l'id inserito
+    if (!post) {
+
+        return res.status(404).json({
+            status: 404,
+            error: 'Not Found',
+            message: 'Post non trovato'
+        })
+    }
 
     // modificare un post in base al campo che si vuole aggiornare
     if(req.body.title) {
@@ -113,9 +132,8 @@ function destroy (req, res) {
 
     // controllare che esista il post in base all'indice
     if(post < 0) {
-        res.status(404);
         
-        return res.json({
+        return res.status(404).json({
             status: 404,
             error: 'Not Found',
             message: 'Post non trovato'
