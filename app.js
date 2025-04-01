@@ -4,8 +4,9 @@ const express = require('express');
 // funzione express
 const app = express();
 
-// importazione not Found-middleare
+// importazione middlewares
 const notFound = require('./middlewares/not-found.js');
+const errorsHandler = require('./middlewares/errors-handler.js');
 
 // registrazione body-parser => decodificare il body per far sì che venga letto
 app.use(express.json()); // in formato json
@@ -16,6 +17,7 @@ app.use('/posts', postsRouter);
 
 // registrazione del middleware
 app.use(notFound);
+app.use(errorsHandler);
 
 // porta 
 const port = 4000;

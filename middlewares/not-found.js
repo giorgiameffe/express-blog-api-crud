@@ -1,4 +1,4 @@
-// dichiarazione del middleware 
+// dichiarazione funzione middleware 
 
 function notFound (req, res, next) {
 

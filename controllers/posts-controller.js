@@ -5,6 +5,7 @@ const posts = require('../data/posts.js');
 
 function index (req, res) {
     // console.log(req.query);
+    // giorgia.get(); => generare error 500 "giorgia is non defined"
     const tag = req.query.tag;
     let filteredPosts = posts;
 
@@ -40,7 +41,7 @@ function store (req,res) {
     console.log(req.body);
     // incrementare l'id dell'ultimo oggetto dell'array
     const newId = posts.at(-1).id + 1;
-    const {title, content, image, tags} = req.body;
+   const {title, content, image, tags} = req.body;
 
     // creare un nuovo post
     const newPost = {
