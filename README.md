@@ -1,22 +1,48 @@
-# Express Blog - API CRUD (parte 1)
+L'obiettivo dell'esercizio è la creazione di una prima API di post per il nostro blog andando ad introdurre e approfondire concetti come:
 
-## Consegna
+- il ruolo del controller;
+- le operazioni CRUD e le varie rotte;
+- i middleware.
 
-### Milestone 1
+La durata dell'esercizio prevista è di tre giorni in cui ogni giorno verrà implementata una sezione del progetto in questione.
 
-- Come prima cosa, creiamo un controller per i nostri post, in una cartella controllers. All’interno, prepariamo tutte le funzioni necessarie e copiamo in ciascuna la logica delle funzioni che attualmente si trovano nel router (al momento restituiscono solo dei messaggi).
-- Poi torniamo sul file delle rotte. Qui importiamo le funzioni dichiarate nel controller e le associamo alle varie rotte, come visto in classe.
-- Testiamo su postman se chiamando gli endpoint riceviamo effettivamente le stesse risposte che avevamo prima. Se tutto funziona, passiamo alla prossima milestone
+# Express Blog API CRUD 
 
-### Milestone 2
+## Day one
 
-- Per iniziare, creiamo una cartella data  in cui creare un file che contenga ed esporti l’array di posts che trovate in allegato.  Importiamo questo file in cima al controller.
-- Ora passiamo ad implementare le logiche delle nostre CRUD:
-  -Index dovrà restituire la lista dei post in formato JSON
-  - Show dovrà restituire un singolo post in formato JSON
-  - Destroy dovrà eliminare un singolo post dalla lista, stampare nel terminale (console.log) la lista aggiornata, e rispondere con uno stato 204 e nessun contenuto.
+Il primo giorno abbiamo introdotto il tema dei **controller**, ovvero file al cui interno possiamo inserire le nostre funzioni deputate allo svolgimento del codice che vogliamo far eseguire alle diverse rotte. 
+Come prima cosa perciò ho creato una cartella "controllers" all'interno della quale ho poi aggiunto il file per l'inserimento delle funzioni in cui ci sarà la parte logica delle operazioni CRUD (*Index, Show, Store, Update, Destroy*).
+In questo modo il router avrà il compito di conservare le rotte e smistare le richieste, mentre il controller si occuperà di preparare la risposta e inviarla al client. 
 
-### Bonus
+Il focus del primo giorno è l'inserimento della parte logica all'interno delle rotte Index, Show e Destroy:
 
-- Implementare un filtro di ricerca nella index che mostri solo i post che hanno un determinato Tag
-- In Show e Destroy, controllare se il parametro si riferisce ad un post esistente, in caso contrario, rispondere con uno stato 404 e un messaggio d’errore, sempre in formato JSON.
+- **Index**: con il verbo http *get*, restituirà la lista dei post (/posts) in formato JSON. Se viene inserita la query string andando a specificare un determinato tag, possiamo filtrare i post in base al tag inserito;
+- **Show**: sempre con il verbo http *get*, restituirà stavolta un singolo post grazie all'aggiunta del parametro dinamico (/posts/:id). Nel caso in cui il post non venisse trovato, verrà restituito lo status 404 (Not Found);
+- **Destroy**: con il verbo http *delete*, verrà eliminato un singolo post dalla lista temporaneamente, ovvero finchè non verrà riavviato il server. In questo caso lo status sarà 204 per avvertire il client della cancellazione avvenuta con successo e 404 se il post sarà inesistente.
+
+# Express Blog API CRUD 
+
+## Day two
+
+Il secondo giorno abbiamo introdotto il concetto di **Request body**, ovvero l'inserimento dei dati di un nuovo elemento tramite il body della richiesta HTTP e l'implementazione delle rotte *Store* e *Update*.
+Tutto questo lo si può fare tramite Postman che permette di inserire i dati del nuovo post in formato JSON.
+
+Il focus del secondo giorno è quindi l'inserimento della parte logica all'interno delle rotte Store, Update e Modify: 
+
+- **Store**: con il verbo http *post*, restituirà il nuovo elemento creato che verrà aggiunto alla lista dei post (/posts) in formato JSON. Per fare ciò verrà inserita come corpo della nostra request un oggetto che rappresenta un nuovo post;
+- **Update**: con il verbo http *put*, verrà effettuata una modifica integrale di un determinato post (/posts/:id). Nel caso in cui il post non venisse trovato, verrà restituito lo status 404 (Not Found);
+- **Modify**: con il verbo http *patch*, verrà effettuata una modifica parziale di un determinato post (/posts/:id). Nel caso in cui il post non venisse trovato, verrà restituito lo status 404 (Not Found);
+
+Tutto ciò è possibile grazie all'impostazione del body parser ovvero delle funzioni che permettono al server di decodificare il request body.
+
+# Express Blog Middlewares
+
+## Day Three
+
+Il terzo giorno abbiamo introdotto il concetto di **Middlewares**: funzioni che vengono eseguite prima o dopo dell'azione associata ad una rotta.
+
+In questo caso sono stati inseriti due middleware:
+- un middleware per la gestione delle rotte inesistenti che restiuirà uno status 404 e un messaggio in formato JSON se la rotta è inesistente;
+- un middleware per la gestione degli errori che restituirà uno status 500 e un messaggio in formato JSON se ci sono errori all'interno dell'applicazione.
+
+In entrambi i casi la registrazione è avvenuta globalmente in modo che i middleware vengano chiamati per ogni rotta dell'applicazione.
