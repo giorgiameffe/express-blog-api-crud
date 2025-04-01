@@ -4,11 +4,8 @@ const express = require('express');
 // funzione router 
 const router = express.Router();
 
-// importare controller 
+// importazione controller 
 const postsController = require('../controllers/posts-controller.js');
-
-// registrare il body-parser => decodificare il body per far sì che venga letto
-router.use(express.json()); // in formato json
 
 // Creare rotte per le operazioni CRUD
 
@@ -30,5 +27,5 @@ router.patch('/:id', postsController.modify);
 // destroy 
 router.delete('/:id', postsController.destroy);
 
-// esportare router
+// esportazione router
 module.exports = router;
